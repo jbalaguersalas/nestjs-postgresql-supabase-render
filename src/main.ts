@@ -4,6 +4,7 @@ import { NestFactory } from '@nestjs/core';
 import { NestExpressApplication } from '@nestjs/platform-express';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
+import { AllExceptionsFilter } from './common/all-exceptions.filter';
 
 // En tu ordenador, lee el .env. En Render no hay .env: las variables las pone Render.
 if (existsSync('.env')) process.loadEnvFile();
@@ -31,6 +32,9 @@ async function bootstrap() {
       transform: true,
     }),
   );
+
+  // Todos los errores con la misma forma
+  app.useGlobalFilters(new AllExceptionsFilter());
 
   app.enableCors({ origin: `http://127.0.0.1:${process.env.WEB_PORT}` });
 
