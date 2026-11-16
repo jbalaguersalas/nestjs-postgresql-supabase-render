@@ -1,6 +1,7 @@
 import { existsSync } from 'node:fs';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
+import helmet from 'helmet';
 import { AppModule } from './app.module';
 
 // En tu ordenador, lee el .env. En Render no hay .env: las variables las pone Render.
@@ -15,6 +16,8 @@ async function bootstrap() {
     type: VersioningType.URI,
     defaultVersion: '1', // la ruta que no diga nada es v1
   });
+
+  app.use(helmet()); // cabeceras de seguridad en todas las respuestas
 
   app.useGlobalPipes(
     new ValidationPipe({
