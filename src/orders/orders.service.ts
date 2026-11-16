@@ -1,6 +1,7 @@
 import {
   ConflictException,
   Injectable,
+  Logger,
   NotFoundException,
 } from '@nestjs/common';
 import { Pool } from 'pg';
@@ -9,6 +10,9 @@ import { Order, OrderRow, toOrder } from './order';
 
 @Injectable()
 export class OrdersService {
+  // Un logger con el nombre de la clase: en la consola sale [OrdersService]
+  private readonly logger = new Logger(OrdersService.name);
+
   constructor(private readonly pool: Pool) {}
 
   async findOne(id: number): Promise<Order> {
@@ -63,9 +67,11 @@ export class OrdersService {
       }
 
       await client.query('COMMIT'); // todo ha ido bien: se guarda
+      this.logger.log(`Pedido ${orderId} creado`);
       return this.findOne(orderId);
     } catch (error) {
       await client.query('ROLLBACK'); // algo ha fallado: se deshace todo
+      this.logger.warn('Pedido cancelado, se deshacen los cambios');
       throw error; // y el error sigue su camino (409, 500...)
     } finally {
       client.release(); // devolvemos la conexión al Pool, pase lo que pase

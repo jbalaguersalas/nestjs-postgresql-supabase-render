@@ -5,6 +5,7 @@ import { NestExpressApplication } from '@nestjs/platform-express';
 import helmet from 'helmet';
 import { AppModule } from './app.module';
 import { AllExceptionsFilter } from './common/all-exceptions.filter';
+import { requestLogger } from './common/request-logger';
 
 // En tu ordenador, lee el .env. En Render no hay .env: las variables las pone Render.
 if (existsSync('.env')) process.loadEnvFile();
@@ -24,6 +25,7 @@ async function bootstrap() {
   });
 
   app.use(helmet()); // cabeceras de seguridad en todas las respuestas
+  app.use(requestLogger); // una línea en la consola por cada petición
 
   app.useGlobalPipes(
     new ValidationPipe({
