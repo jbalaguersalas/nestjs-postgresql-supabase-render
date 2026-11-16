@@ -1,0 +1,363 @@
+{
+  "info": {
+    "name": "API libros - Apunte 07",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": "Peticiones del apunte 07. La variable baseUrl es http://localhost:3000/api. Antes del apartado 2 (versiones) usa las rutas sin /v1."
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:3000/api"
+    }
+  ],
+  "item": [
+    {
+      "name": "1. Stock (antes de versiones)",
+      "item": [
+        {
+          "name": "Listar libros",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/books",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 1 - PATCH stock libro 2",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/books/2",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"stock\": 20\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": "Esperado: 200 con stock 20"
+          }
+        },
+        {
+          "name": "Crear libro con stock",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/books",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"Libro de prueba\",\n  \"author\": \"Yo\",\n  \"pages\": 100,\n  \"stock\": 3\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "2. Versiones",
+      "item": [
+        {
+          "name": "Ej 2 - v1 libro 1 (200)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v1/books/1",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 2 - v3 (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v3/books",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 2 - sin version (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/books/1",
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "3. Paginacion (v2)",
+      "item": [
+        {
+          "name": "Ej 4.1 - pagina por defecto",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v2/books",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 4.2 - page=2 limit=5",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v2/books?page=2&limit=5",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 4.3 - sort pages desc",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v2/books?sort=pages&order=desc&limit=3",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 4.4 - author marquez",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v2/books?author=márquez",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 5 - limit=100 (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v2/books?limit=100",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 5 - page=0 (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v2/books?page=0",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 5 - sort=price (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v2/books?sort=price",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 5 - order=up (400)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v2/books?order=up",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 6 - page=99 (200 vacio)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v2/books?page=99",
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "4. Seguridad",
+      "item": [
+        {
+          "name": "Ej 7 - mirar Headers",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v1/books",
+            "description": "Mira la pestaña Headers de la respuesta antes y después de helmet"
+          }
+        },
+        {
+          "name": "Ej 8 - repetir hasta 429",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v1/books",
+            "description": "Pulsa Send más de 20 veces en un minuto"
+          }
+        }
+      ]
+    },
+    {
+      "name": "5-6. Pedidos",
+      "item": [
+        {
+          "name": "Ej 10.1 - crear pedido",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/v1/orders",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"bookId\": 1,\n      \"quantity\": 2\n    },\n    {\n      \"bookId\": 3,\n      \"quantity\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 10.2 - ver pedido 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v1/orders/1",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 10.3 - stock libro 1",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v1/books/1",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 11 - libro 2 stock",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v1/books/2",
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 11 - pedido sin stock (409)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/v1/orders",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"bookId\": 2,\n      \"quantity\": 1\n    },\n    {\n      \"bookId\": 5,\n      \"quantity\": 1\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 12 - items vacio (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/v1/orders",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": []\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": ""
+          }
+        },
+        {
+          "name": "Ej 12 - items malos (400)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "url": "{{baseUrl}}/v1/orders",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"items\": [\n    {\n      \"bookId\": \"uno\",\n      \"quantity\": 50\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "description": ""
+          }
+        }
+      ]
+    },
+    {
+      "name": "7. Errores y logs",
+      "item": [
+        {
+          "name": "Ej 13 - con PostgreSQL parado (500)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v1/books",
+            "description": "Antes: docker stop postgres-bootcamp-api. Después: docker start postgres-bootcamp-api"
+          }
+        },
+        {
+          "name": "Ej 14 - libro 99 (404)",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": "{{baseUrl}}/v1/books/99",
+            "description": ""
+          }
+        }
+      ]
+    }
+  ]
+}
