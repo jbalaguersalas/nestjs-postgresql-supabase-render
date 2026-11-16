@@ -15,12 +15,11 @@ import { CreateBookDto } from './dto/create-book.dto';
 import { UpdateBookDto } from './dto/update-book.dto';
 import { ListBooksQueryDto } from './dto/list-books-query.dto';
 
-@Controller('books') // todas las rutas de esta clase empiezan por /api/books
+@Controller('books')
 export class BooksController {
-  // Inyección de dependencias: NestJS crea el servicio y nos lo pasa
   constructor(private readonly booksService: BooksService) {}
 
-  @Get() // GET /api/books  (y  /api/books?author=garcia)
+  @Get() // GET /api/v1/books?author=garcia
   findAll(@Query('author') author?: string) {
     return this.booksService.findAll(author);
   }
@@ -31,23 +30,22 @@ export class BooksController {
     return this.booksService.findPage(query);
   }
 
-
-  @Get(':id') // GET /api/books/1
+  @Get(':id') // GET /api/v1/books/1
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.booksService.findOne(id);
   }
 
-  @Post() // POST /api/books  → 201
+  @Post() // POST /api/v1/books → 201
   create(@Body() dto: CreateBookDto) {
     return this.booksService.create(dto);
   }
 
-  @Patch(':id') // PATCH /api/books/1
+  @Patch(':id') // PATCH /api/v1/books/1
   update(@Param('id', ParseIntPipe) id: number, @Body() dto: UpdateBookDto) {
     return this.booksService.update(id, dto);
   }
 
-  @Delete(':id') // DELETE /api/books/1  → 200 con el libro borrado
+  @Delete(':id') // DELETE /api/v1/books/1 → 200 con el libro borrado
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.booksService.remove(id);
   }

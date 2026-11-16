@@ -4,7 +4,7 @@ export interface BookRow {
   title: string;
   author: string;
   pages: number;
-  created_at: Date; // en SQL se escribe con guion bajo
+  created_at: Date;
   stock: number;
 }
 
@@ -14,20 +14,19 @@ export interface Book {
   title: string;
   author: string;
   pages: number;
-  createdAt: Date; // en JavaScript, en camelCase
+  createdAt: Date;
   stock: number;
 }
 
 // Una página de libros (lo que devuelve la v2 de GET /books)
 export interface BookPage {
-  data: Book[]; // los libros de esta página
-  total: number; // cuántos libros hay en total (con el filtro)
-  page: number; // página actual
-  limit: number; // libros por página
-  totalPages: number; // cuántas páginas hay
+  data: Book[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
 }
 
-// Convierte una fila de la base de datos en un libro de la API
 export function toBook(row: BookRow): Book {
   return {
     id: row.id,

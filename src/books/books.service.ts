@@ -14,14 +14,14 @@ const COLUMNS = 'id, title, author, pages, stock, created_at';
 
 @Injectable()
 export class BooksService implements BooksContract {
-  constructor(private readonly pool: Pool) {} // NestJS nos da el Pool
+  constructor(private readonly pool: Pool) {}
 
   async findAll(author?: string): Promise<Book[]> {
     if (!author) {
       const result = await this.pool.query<BookRow>(
         `SELECT ${COLUMNS} FROM books ORDER BY id`,
       );
-      return result.rows.map(toBook); // cada fila → un libro de la API
+      return result.rows.map(toBook);
     }
 
     const result = await this.pool.query<BookRow>(
@@ -42,7 +42,7 @@ export class BooksService implements BooksContract {
     // ORDER BY no admite $1: el nombre de la columna va en el texto del SQL.
     // Es seguro porque el DTO solo deja pasar 'id', 'title' o 'pages'.
     const direction = order === 'desc' ? 'DESC' : 'ASC';
-    const offset = (page - 1) * limit; // página 1 → 0, página 2 → limit...
+    const offset = (page - 1) * limit;
 
     const result = await this.pool.query<BookRow>(
       `SELECT ${COLUMNS} FROM books
@@ -65,7 +65,7 @@ export class BooksService implements BooksContract {
       total,
       page,
       limit,
-      totalPages: Math.ceil(total / limit), // 12 libros / 5 = 2,4 → 3 páginas
+      totalPages: Math.ceil(total / limit),
     };
   }
 

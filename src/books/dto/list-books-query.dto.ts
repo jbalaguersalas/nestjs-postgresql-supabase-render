@@ -13,7 +13,7 @@ export class ListBooksQueryDto {
   @Type(() => Number)
   @IsInt()
   @Min(1)
-  @Max(50) // nadie puede pedir un millón de libros de golpe
+  @Max(50)
   limit: number = 10;
 
   @IsOptional()
@@ -21,7 +21,7 @@ export class ListBooksQueryDto {
   sort: 'id' | 'title' | 'pages' = 'id';
 
   @IsOptional()
-  @IsIn(['asc', 'desc']) // asc = de menor a mayor, desc = de mayor a menor
+  @IsIn(['asc', 'desc'])
   order: 'asc' | 'desc' = 'asc';
 
   @IsOptional()

@@ -4,7 +4,7 @@ import { BooksController } from './books.controller';
 import { BooksService } from './books.service';
 
 @Module({
-  imports: [DatabaseModule], // para poder pedir el Pool
+  imports: [DatabaseModule],
   controllers: [BooksController],
   providers: [BooksService],
 })

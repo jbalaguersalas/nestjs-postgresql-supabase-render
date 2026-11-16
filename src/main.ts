@@ -9,19 +9,16 @@ if (existsSync('.env')) process.loadEnvFile();
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // Todas las rutas empiezan por /api
   app.setGlobalPrefix('api');
 
-  // Versiones en la URL: /api/v1/..., /api/v2/...
   app.enableVersioning({
-    type: VersioningType.URI, // la versión va en la URL
+    type: VersioningType.URI,
     defaultVersion: '1', // la ruta que no diga nada es v1
   });
 
-  // Comprueba los DTO en todas las rutas
   app.useGlobalPipes(
     new ValidationPipe({
-      whitelist: true, // quita los campos que no estén en el DTO...
+      whitelist: true,
       forbidNonWhitelisted: true,
       transform: true,
     }),

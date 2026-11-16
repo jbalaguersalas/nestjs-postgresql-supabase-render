@@ -1,7 +1,6 @@
 import { Module } from '@nestjs/common';
 import { Pool } from 'pg';
 
-// Crea el Pool y avisa (sin caerse) si PostgreSQL corta una conexión
 function createPool() {
   const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
@@ -19,6 +18,6 @@ function createPool() {
       useFactory: createPool, // ...NestJS ejecuta esta función una vez
     },
   ],
-  exports: [Pool], // otros módulos pueden pedir el Pool
+  exports: [Pool],
 })
 export class DatabaseModule {}

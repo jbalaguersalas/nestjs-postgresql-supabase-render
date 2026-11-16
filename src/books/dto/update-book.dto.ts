@@ -28,7 +28,7 @@ export class UpdateBookDto {
   @Min(1)
   pages?: number;
 
-  @IsOptional() // si no llega, el libro empieza con 0 ejemplares
+  @IsOptional()
   @IsInt()
   @Min(0)
   stock?: number;
