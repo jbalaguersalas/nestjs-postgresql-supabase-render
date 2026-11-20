@@ -48,16 +48,6 @@ El `.env` solo necesita `DATABASE_URL`. El `schema.sql` crea las tablas `books`,
 
 En [`web/index.html`](web/index.html) hay una página sencilla que pide los libros a la API desplegada en Render y los pinta en una tabla.
 
-## He aprendido
-
-**Qué es una transacción.** Si un pedido tiene tres libros y el tercero no tiene stock, no puedo dejar restados los dos primeros. Abro la transacción con `BEGIN`, y si algo falla hago `ROLLBACK` y se deshace todo. Además tiene que ir todo por la misma conexión, así que pido una al Pool y la devuelvo al final pase lo que pase.
-
-**A restar el stock en una sola consulta.** `UPDATE books SET stock = stock - $1 WHERE id = $2 AND stock >= $1`. Si no cambia ninguna fila, o el libro no existe o no hay ejemplares, y devuelvo 409.
-
-**A dar a todos los errores la misma forma.** Antes un 404 y un 500 salían distintos. Con el filtro, el cliente siempre recibe los mismos campos, y el detalle de los 500 se queda en mi consola.
-
-**Que detrás de Render hay un proxy.** Sin `trust proxy`, el límite de peticiones veía la misma IP para todo el mundo.
-
 ## Tecnologías
 
 - **NestJS** con TypeScript
