@@ -2,7 +2,7 @@
 
 Práctica del bootcamp de Full Stack de The Bridge.
 
-Es una API para una tienda de libros. El punto de partida lo hicimos en clase: un CRUD de libros con NestJS que guarda los datos en PostgreSQL, preparado para subirlo a Render con la base de datos en Supabase. El código de partida ya traía el stock de cada libro, dos versiones de la API (`/api/v2/books` devuelve los libros por páginas) y las tablas de pedidos. Sobre eso he hecho yo los ejercicios del apunte 07.
+Es una API para una tienda de libros. El punto de partida lo hice en clase con el profesor: un CRUD de libros con NestJS que guarda los datos en PostgreSQL, preparado para subirlo a Render con la base de datos en Supabase. El código de partida ya traía el stock de cada libro, dos versiones de la API (`/api/v2/books` devuelve los libros por páginas) y las tablas de pedidos. Sobre eso he hecho yo los ejercicios del apunte 07.
 
 ## Qué he añadido yo
 
